@@ -11,7 +11,7 @@ import SwiftUI
 struct OCalcApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(lytMgr: LayoutManager())
         }
     }
 }

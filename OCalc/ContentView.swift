@@ -8,17 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    var lytMgr: LayoutManager
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        lytMgr.createLayout()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(lytMgr: LayoutManager())
 }
