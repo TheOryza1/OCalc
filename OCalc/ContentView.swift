@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    var lytMgr: LayoutManager
+    @ObservedObject var lytMgr: LayoutManager
     
     var body: some View {
         lytMgr.createLayout()

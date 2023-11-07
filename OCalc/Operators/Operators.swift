@@ -30,7 +30,7 @@ struct Operators {
     }
 
     func Divide(_ num1: Number, _ num2: Number) -> Number? {
-        guard num2.valDouble != 0 else {return nil}
+        guard num2.valDouble != 0 else {return Number(0)}
         
         let result = num1.valDouble / num2.valDouble
         return valToReturn(result: result)
