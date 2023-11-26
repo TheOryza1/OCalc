@@ -15,25 +15,33 @@ struct Operators {
     }
     
     func Add(_ num1: Number, _ num2: Number) -> Number? {
-        let result = num1.valDouble + num2.valDouble
-        return valToReturn(result: result)
+        if let val1 = num1.valDouble, let val2 = num2.valDouble {
+            return valToReturn(result: val1 + val2)
+        }
+        return Number("ERROR")
     }
     
     func Subtract(_ num1: Number, _ num2: Number) -> Number? {
-        let result = num1.valDouble - num2.valDouble
-        return valToReturn(result: result)
+        if let val1 = num1.valDouble, let val2 = num2.valDouble {
+            return valToReturn(result: val1 - val2)
+        }
+        return Number("ERROR")
     }
 
     func Multiply(_ num1: Number, _ num2: Number) -> Number? {
-        let result = num1.valDouble * num2.valDouble
-        return valToReturn(result: result)
+        if let val1 = num1.valDouble, let val2 = num2.valDouble {
+            return valToReturn(result: val1 * val2)
+        }
+        return Number("ERROR")
     }
 
     func Divide(_ num1: Number, _ num2: Number) -> Number? {
-        guard num2.valDouble != 0 else {return Number(0)}
+        guard num2.valDouble != 0 else {return Number("ERROR")}
         
-        let result = num1.valDouble / num2.valDouble
-        return valToReturn(result: result)
+        if let val1 = num1.valDouble, let val2 = num2.valDouble {
+            return valToReturn(result: val1 / val2)
+        }
+        return Number("ERROR")
     }
 
 }

@@ -7,14 +7,15 @@
 
 import Foundation
 
-struct LogicManager {
+class LogicManager: ObservableObject {
     private var opMgr = Operators()
     private var firstNum: Number?
     private var secondNum: Number?
     private var isFirst: Bool = true
+    private var dotCounter = 0
     private var op: String?
-    
-    mutating func handleInput(_ displayString: String) -> String {
+        
+    func handleInput(_ displayString: String) -> String {
         let operators = ["+", "-", "×", "÷", "="]
         if let last = displayString.last {
             if operators.contains(String(last)) {
@@ -23,16 +24,22 @@ struct LogicManager {
                 if isFirst {
                     firstNum = assignVal(displayString)
                     isFirst = false
+                    dotCounter = 0
                 } else {
                     if String(last) == "="{
                         return equalsOperator(displayString)
                     }
                 }
-                
+
                 return ""
-            }
+            } 
         }
         return displayString
+    }
+
+    func handleButtons(_ displayString: String, _ valString: String) -> String {
+        if(valString == "." && displayString.contains(".")) {return displayString}
+        return (displayString + valString)
     }
     
     //Takes string as input, converts to Number enum, returns number if works otherwise Number(0)
@@ -48,13 +55,19 @@ struct LogicManager {
     }
     
     //Takes in the display string and calculates based off the op, returns ERROR msg if something goes wrong
-    private mutating func equalsOperator(_ displayString: String) -> String {
+    private func equalsOperator(_ displayString: String) -> String {
         secondNum = assignVal(displayString)
         isFirst = true
         
         if let num1 = firstNum {
             if let num2 = secondNum {
-                return String(opType(op!, num1, num2).valDouble)
+                dotCounter = 0
+                if let result = opType(op!, num1, num2).valDouble {
+                    if floor(result) == result {
+                        return String(Int(result))
+                    }
+                    return String(result)
+                }
             }
         }
         return "ERROR"
@@ -67,7 +80,8 @@ struct LogicManager {
         case "-": return opMgr.Subtract(num1, num2)!
         case "×": return opMgr.Multiply(num1, num2)!
         case "÷": return opMgr.Divide(num1, num2)!
-        default: return Number(0)
+        default: return Number("ERROR")
         }
     }
+    
 }
